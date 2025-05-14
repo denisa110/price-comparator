@@ -1,15 +1,20 @@
 package ro.accesa.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "PRODUCT")
+@Table(name = Product.PRODUCT_TABLE)
+@AttributeOverride(name = "id", column = @Column(name = Product.PRODUCT_ID))
 public class Product extends PersistenceEntity {
+    public static final String PRODUCT_TABLE = "PRODUCT";
+    public static final String PRODUCT_ID = "product_id";
     private String name;
     private String brand;
     private Double packageQuantity;
     private String packageUnit;
+    @ManyToOne
+    @JoinColumn(name = Category.CATEGORY_ID)
+    private Category category;
 
     public Product() {
         super();
@@ -60,6 +65,14 @@ public class Product extends PersistenceEntity {
 
     public void setPackageUnit(String packageUnit) {
         this.packageUnit = packageUnit;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     @Override
