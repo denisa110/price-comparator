@@ -10,7 +10,10 @@ public class Product extends PersistenceEntity {
     public static final String PRODUCT_ID = "product_id";
     private String name;
     private String brand;
+    @Column(name = "package_quantity")
     private Double packageQuantity;
+
+    @Column(name = "package_unit")
     private String packageUnit;
     @ManyToOne
     @JoinColumn(name = Category.CATEGORY_ID)

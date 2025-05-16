@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -16,7 +16,8 @@ import java.time.LocalDateTime;
 public class PriceHistory extends PersistenceEntity {
     public static final String PRICE_HISTORY_TABLE = "PRICE_HISTORY";
     public static final String PRICE_HISTORY_ID = "price_history_id";
-    private LocalDateTime date;
+    @Column(name = "date_price")
+    private LocalDate datePrice;
     private Double price;
     private String currency;
 

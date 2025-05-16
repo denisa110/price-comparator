@@ -1,0 +1,46 @@
+INSERT INTO PRODUCT (product_id, name, brand, package_quantity, package_unit, category_id) VALUES
+(67, 'mălai extra', 'Pambac', 1, 'kg', (SELECT category_id FROM CATEGORY WHERE name = 'alimente de bază')),
+(68, 'file somon', 'Lidl', 0.2, 'kg', (SELECT category_id FROM CATEGORY WHERE name = 'Pește')),
+(69, 'cremă de brânză', 'Almette', 0.15, 'kg', (SELECT category_id FROM CATEGORY WHERE name = 'lactate'));
+
+INSERT INTO PRICE_HISTORY (price_history_id, date_price, price, currency, product_id, retailer_id) VALUES
+(66, '2025-05-08', 9.80, 'RON', 1, 1),
+(67, '2025-05-08', 11.60, 'RON', 2, 1),
+(68, '2025-05-08', 13.10, 'RON', 3, 1),
+(69, '2025-05-08', 12.90, 'RON', 4, 1),
+(70, '2025-05-08', 3.40, 'RON', 5, 1),
+(71, '2025-05-08', 6.90, 'RON', 6, 1),
+(72, '2025-05-08', 28.90, 'RON', 7, 1),
+(73, '2025-05-08', 5.70, 'RON', 8, 1),
+(74, '2025-05-08', 4.30, 'RON', 9, 1),
+(75, '2025-05-08', 5.10, 'RON', 10, 1),
+(76, '2025-05-08', 6.00, 'RON', 11, 1),
+(77, '2025-05-08', 9.30, 'RON', 12, 1),
+(78, '2025-05-08', 7.00, 'RON', 13, 1),
+(79, '2025-05-08', 22.60, 'RON', 14, 1),
+(80, '2025-05-08', 49.50, 'RON', 15, 1),
+(81, '2025-05-08', 17.90, 'RON', 16, 1),
+(82, '2025-05-08', 18.80, 'RON', 17, 1),
+(83, '2025-05-08', 6.05, 'RON', 18, 1),
+(84, '2025-05-08', 23.30, 'RON', 19, 1),
+(85, '2025-05-08', 3.80, 'RON', 20, 1),
+(86, '2025-05-08', 3.00, 'RON', 21, 1),
+(87, '2025-05-08', 2.80, 'RON', 22, 1),
+(88, '2025-05-08', 5.50, 'RON', 67, 1),
+(89, '2025-05-08', 25.00, 'RON', 68, 1),
+(90, '2025-05-08', 8.50, 'RON', 69, 1);
+
+INSERT INTO DISCOUNT_HISTORY (discount_history_id, start_date, end_date, percentage_of_discount, discount_created_date, price_history_id) VALUES
+(43, '2025-05-08', '2025-05-14', 12, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 1 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(44, '2025-05-08', '2025-05-14', 10, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 4 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(45, '2025-05-09', '2025-05-15', 8,  '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 7 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(46, '2025-05-10', '2025-05-16', 15, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 14 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(47, '2025-05-08', '2025-05-14', 7,  '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 12 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(48, '2025-05-09', '2025-05-15', 20, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 15 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(49, '2025-05-10', '2025-05-16', 18, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 16 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(50, '2025-05-08', '2025-05-14', 10, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 17 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(51, '2025-05-09', '2025-05-15', 12, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 20 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(52, '2025-05-10', '2025-05-16', 6,  '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 21 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(53, '2025-05-08', '2025-05-14', 5,  '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 67 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(54, '2025-05-09', '2025-05-15', 10, '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 68 AND retailer_id = 1 AND date_price = '2025-05-08')),
+(55, '2025-05-10', '2025-05-16', 8,  '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 69 AND retailer_id = 1 AND date_price = '2025-05-08'));
