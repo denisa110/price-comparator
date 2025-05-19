@@ -19,11 +19,11 @@
             <property name="jakarta.persistence.jdbc.password" value="1234"/>
 
             <!-- Schema Generation -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
             <!-- Alternative values: none | create | drop-and-create | drop -->
 
             <!--<property name="jakarta.persistence.logging.level" value="FINE"/>-->
-            <property name="jakarta.persistence.logging.level" value="WARNING"/>
+            <property name="jakarta.persistence.logging.level" value="ERROR"/>
 
             <!-- Hibernate as JPA Provider -->
             <property name="jakarta.persistence.provider" value="org.hibernate.jpa.HibernatePersistenceProvider"/>

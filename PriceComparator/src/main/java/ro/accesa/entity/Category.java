@@ -1,9 +1,7 @@
 package ro.accesa.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +9,8 @@ import static ro.accesa.entity.Category.CATEGORY_ID;
 import static ro.accesa.entity.Category.CATEGORY_TABLE;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Builder  //-Builder pattern
 @Entity

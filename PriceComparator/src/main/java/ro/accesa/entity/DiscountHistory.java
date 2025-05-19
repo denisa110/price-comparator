@@ -1,13 +1,13 @@
 package ro.accesa.entity;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Builder  //-Builder pattern
 @Entity
@@ -28,4 +28,6 @@ public class DiscountHistory extends PersistenceEntity {
     @ManyToOne
     @JoinColumn(name = PriceHistory.PRICE_HISTORY_ID)
     private PriceHistory priceHistory;
+
+
 }

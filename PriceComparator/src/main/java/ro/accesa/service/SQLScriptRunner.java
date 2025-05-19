@@ -10,6 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
+import static org.hibernate.internal.util.StringHelper.isNotEmpty;
+
 public class SQLScriptRunner {
 
     private final Logger logger = Logger.getLogger("SQLScriptRunner");
@@ -27,8 +29,8 @@ public class SQLScriptRunner {
                 "migrations/V4__lidl_2025-05-08.sql",
         };
 
-        for (String script : scripts) {
-            runScript(script);
+        for (String scriptPath : scripts) {
+            runScript(scriptPath);
         }
         logger.log(Level.INFO, "The data was imported successfully!");
     }
@@ -46,7 +48,7 @@ public class SQLScriptRunner {
 
             for (String statement : statements) {
                 String cleaned = statement.trim();
-                if (!cleaned.isEmpty()) {
+                if (isNotEmpty(cleaned)) {
                     entityManager.createNativeQuery(cleaned).executeUpdate();
                 }
             }
