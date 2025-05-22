@@ -45,12 +45,23 @@ public class DiscountHistoryRepository {
     }
 
     public List<DiscountHistory> getNewDiscountsSince(LocalDate fromDate, boolean isActive) {
-        String query = "SELECT d FROM DiscountHistory d WHERE " +
-                (isActive ? ":fromDate BETWEEN d.startDate AND d.endDate " : "d.discountCreatedDate >= :fromDate AND d.discountCreatedDate <= :fromDate ") +
-                "ORDER BY d.discountCreatedDate DESC";
+        String query = "SELECT d FROM DiscountHistory d WHERE ";
 
-        return entityManager.createQuery(query, DiscountHistory.class)
-                .setParameter("fromDate", fromDate)
-                .getResultList();
+        if (isActive) {
+            query += ":now BETWEEN d.startDate AND d.endDate AND d.discountCreatedDate >= :fromDate";
+        } else {
+            query += "d.discountCreatedDate >= :fromDate";
+        }
+
+        query += " ORDER BY d.discountCreatedDate DESC";
+
+        TypedQuery<DiscountHistory> typedQuery = entityManager.createQuery(query, DiscountHistory.class)
+                .setParameter("fromDate", fromDate);
+
+        if (isActive) {
+            typedQuery.setParameter("now", LocalDate.now());
+        }
+
+        return typedQuery.getResultList();
     }
 }

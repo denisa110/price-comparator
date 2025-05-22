@@ -58,8 +58,8 @@ public class DiscountService {
     }
 
     public void displayNewDiscounts(int hours, boolean isActive) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        LocalDate fromDate = currentDateTime.minusHours(hours).toLocalDate();
+        LocalDateTime currentDateTime = LocalDateTime.now().minusHours(hours);
+        LocalDate fromDate = currentDateTime.toLocalDate();
 
         List<DiscountHistory> discounts = discountRepository.getNewDiscountsSince(fromDate, isActive);
 
