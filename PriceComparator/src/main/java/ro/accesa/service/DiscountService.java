@@ -6,6 +6,7 @@ import ro.accesa.entity.Product;
 import ro.accesa.repository.DiscountHistoryRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -53,6 +54,31 @@ public class DiscountService {
             }
         } catch (Exception e) {
             System.out.println("Error processing date. Make sure you are using the correct format (YYYY-MM-DD).");
+        }
+    }
+
+    public void displayNewDiscounts(int hours, boolean isActive) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        LocalDate fromDate = currentDateTime.minusHours(hours).toLocalDate();
+
+        List<DiscountHistory> discounts = discountRepository.getNewDiscountsSince(fromDate, isActive);
+
+        if (discounts.isEmpty()) {
+            System.out.println("Nu există reduceri noi în ultimele " + hours + " ore.");
+            return;
+        }
+
+        System.out.println("=== Reduceri noi găsite în ultimele " + hours + " ore ===");
+        for (DiscountHistory discount : discounts) {
+            PriceHistory ph = discount.getPriceHistory();
+            Product product = ph.getProduct();
+
+            System.out.printf("- %s | Brand: %s | Preț: %.2f %s | Discount: %.2f%% | Adăugat: %s%n",
+                    product.getName(), product.getBrand(),
+                    ph.getPrice(), ph.getCurrency(),
+                    discount.getPercentageOfDiscount(),
+                    discount.getDiscountCreatedDate()
+            );
         }
     }
 }

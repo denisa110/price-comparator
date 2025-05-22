@@ -43,4 +43,14 @@ public class DiscountHistoryRepository {
         }
         return query.getResultList();
     }
+
+    public List<DiscountHistory> getNewDiscountsSince(LocalDate fromDate, boolean isActive) {
+        String query = "SELECT d FROM DiscountHistory d WHERE " +
+                (isActive ? ":fromDate BETWEEN d.startDate AND d.endDate " : "d.discountCreatedDate >= :fromDate AND d.discountCreatedDate <= :fromDate ") +
+                "ORDER BY d.discountCreatedDate DESC";
+
+        return entityManager.createQuery(query, DiscountHistory.class)
+                .setParameter("fromDate", fromDate)
+                .getResultList();
+    }
 }
