@@ -64,20 +64,21 @@ public class DiscountService {
         List<DiscountHistory> discounts = discountRepository.getNewDiscountsSince(fromDate, isActive);
 
         if (discounts.isEmpty()) {
-            System.out.println("Nu există reduceri noi în ultimele " + hours + " ore.");
+            System.out.println("There are no new discounts in the last " + hours + " hours.");
             return;
         }
 
-        System.out.println("=== Reduceri noi găsite în ultimele " + hours + " ore ===");
+        System.out.println("=== New discounts found in the last " + hours + " hours ===");
         for (DiscountHistory discount : discounts) {
             PriceHistory ph = discount.getPriceHistory();
             Product product = ph.getProduct();
 
-            System.out.printf("- %s | Brand: %s | Preț: %.2f %s | Discount: %.2f%% | Adăugat: %s%n",
+            System.out.printf("- %s | Brand: %s | Price: %.2f %s | Discount: %.2f%% | Added date: %s | Final date: %s%n",
                     product.getName(), product.getBrand(),
                     ph.getPrice(), ph.getCurrency(),
                     discount.getPercentageOfDiscount(),
-                    discount.getDiscountCreatedDate()
+                    discount.getDiscountCreatedDate().toString(),
+                    discount.getEndDate().toString()
             );
         }
     }
