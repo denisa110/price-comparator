@@ -25,7 +25,7 @@ public class Main {
             em = emf.createEntityManager();
 
             ProductRepository productRepo = ProductRepository.getInstance(em);
-            Product product = productRepo.findByName("banane").orElse(null);
+            Product product = productRepo.findByName("banane");
 
             if (product == null) {
                 SQLScriptRunner scriptRunner = new SQLScriptRunner(em);

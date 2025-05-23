@@ -20,6 +20,8 @@ public class PriceHistory extends PersistenceEntity {
     private LocalDate datePrice;
     private Double price;
     private String currency;
+    @Column(name = "is_base_price", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private boolean isBasePrice;
 
     @ManyToOne
     @JoinColumn(name = Product.PRODUCT_ID)

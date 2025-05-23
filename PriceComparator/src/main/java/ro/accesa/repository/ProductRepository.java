@@ -1,9 +1,8 @@
 package ro.accesa.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import ro.accesa.entity.Product;
-
-import java.util.Optional;
 
 public class ProductRepository {
     private static ProductRepository instance;
@@ -20,11 +19,15 @@ public class ProductRepository {
         return instance;
     }
 
-    public Optional<Product> findByName(String name) {
-        return Optional.ofNullable(em.createQuery(
-                        "SELECT p FROM Product p WHERE p.name = :name", Product.class)
-                .setParameter("name", name)
-                .setMaxResults(1)
-                .getSingleResult());
+    public Product findByName(String name) {
+        try {
+            return em.createQuery(
+                            "SELECT p FROM Product p WHERE LOWER(p.name) = :name", Product.class)
+                    .setParameter("name", name.toLowerCase())
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }
