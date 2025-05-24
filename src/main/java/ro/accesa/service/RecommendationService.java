@@ -2,7 +2,7 @@ package ro.accesa.service;
 
 import ro.accesa.entity.PriceHistory;
 import ro.accesa.entity.Product;
-import ro.accesa.repository.PriceHistoryRepository;
+import ro.accesa.repository.IPriceHistoryRepository;
 import ro.accesa.util.ConsoleUtils;
 
 import java.util.Comparator;
@@ -11,9 +11,9 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RecommendationService implements IRecommendationService {
-    private final PriceHistoryRepository priceHistoryRepository;
+    private final IPriceHistoryRepository priceHistoryRepository;
 
-    public RecommendationService(PriceHistoryRepository priceHistoryRepository) {
+    public RecommendationService(IPriceHistoryRepository priceHistoryRepository) {
         this.priceHistoryRepository = priceHistoryRepository;
     }
 

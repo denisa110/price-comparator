@@ -19,11 +19,9 @@ INSERT INTO PRICE_HISTORY (price_history_id, date_price, price, currency, produc
 (158, '2025-05-08', 6.10,  'RON', 63, 3),
 (159, '2025-05-08', 23.00, 'RON', 64, 3),
 (160, '2025-05-08', 4.00,  'RON', 65, 3),
-(161, '2025-05-08', 2.60,  'RON', 66, 3),
 (162, '2025-05-08', 8.00,  'RON', 67, 3),
 (163, '2025-05-08', 5.00,  'RON', 68, 3),
-(164, '2025-05-08', 10.50, 'RON', 69, 3),
-(165, '2025-05-08', 3.80,  'RON', 70, 3);
+(164, '2025-05-08', 10.50, 'RON', 69, 3);
 
 INSERT INTO DISCOUNT_HISTORY (discount_history_id, start_date, end_date, percentage_of_discount, discount_created_date, price_history_id) VALUES
 (68, '2025-05-08', '2025-05-14', 9,  '2025-05-08', (SELECT price_history_id FROM PRICE_HISTORY WHERE product_id = 47 AND retailer_id = 3 AND date_price = '2025-05-08')),

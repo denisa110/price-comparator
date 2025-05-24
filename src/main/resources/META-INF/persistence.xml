@@ -5,12 +5,6 @@
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="persistence-unit" transaction-type="RESOURCE_LOCAL">
-        <class>ro.accesa.entity.Category</class>
-        <class>ro.accesa.entity.DiscountHistory</class>
-        <class>ro.accesa.entity.PriceHistory</class>
-        <class>ro.accesa.entity.Product</class>
-        <class>ro.accesa.entity.Retailer</class>
-
         <properties>
             <!-- JDBC Configuration -->
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -19,7 +13,7 @@
             <property name="jakarta.persistence.jdbc.password" value="1234"/>
 
             <!-- Schema Generation -->
-            <property name="jakarta.persistence.schema-generation.database.action" value="update"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="none"/>
             <!-- Alternative values: none | create | drop-and-create | drop -->
 
             <!--<property name="jakarta.persistence.logging.level" value="FINE"/>-->

@@ -31,6 +31,8 @@ public class SQLScriptRunner {
                 "migrations/V2__kaufland_2025-05-01.sql",
                 "migrations/V3__profi_2025-05-01.sql",
                 "migrations/V4__lidl_2025-05-08.sql",
+                "migrations/V5__kaufland_2025-05-08.sql",
+                "migrations/V6__profi_2025-05-08.sql",
         };
 
         for (String scriptPath : scripts) {

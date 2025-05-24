@@ -3,35 +3,22 @@ package ro.accesa.service;
 import ro.accesa.entity.DiscountHistory;
 import ro.accesa.entity.PriceHistory;
 import ro.accesa.entity.Product;
-import ro.accesa.repository.DiscountHistoryRepository;
+import ro.accesa.repository.IDiscountHistoryRepository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Scanner;
 
 public class DiscountService implements IDiscountService {
-    private final Scanner scanner;
-    private final DiscountHistoryRepository discountRepository;
+    private final IDiscountHistoryRepository discountRepository;
 
-    public DiscountService(DiscountHistoryRepository discountRepository) {
+    public DiscountService(IDiscountHistoryRepository discountRepository) {
         this.discountRepository = discountRepository;
-        this.scanner=new Scanner(System.in);
     }
 
     @Override
-    public void displayDiscountsForDate() {
+    public void displayDiscountsForDate(LocalDate targetDate, String retailer, int limit) {
         try {
-            System.out.print("Enter the date (format YYYY-MM-DD): ");
-            String dateInput = scanner.nextLine();
-            LocalDate targetDate = LocalDate.parse(dateInput);
-
-            System.out.print("Enter retailer (or leave blank for all): ");
-            String retailer = scanner.nextLine();
-
-            System.out.print("Enter the number of results you want: ");
-            int limit = Integer.parseInt(scanner.nextLine());
-
             List<DiscountHistory> discounts = discountRepository.getDiscountsForDate(targetDate, retailer, limit);
             if (discounts.isEmpty()) {
                 System.out.println("There are no discounts available on the date " + targetDate);

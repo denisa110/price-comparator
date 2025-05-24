@@ -4,8 +4,8 @@ import ro.accesa.dto.AlertDTO;
 import ro.accesa.entity.PriceAlert;
 import ro.accesa.entity.PriceHistory;
 import ro.accesa.entity.Product;
-import ro.accesa.repository.PriceAlertRepository;
-import ro.accesa.repository.PriceHistoryRepository;
+import ro.accesa.repository.IPriceAlertRepository;
+import ro.accesa.repository.IPriceHistoryRepository;
 import ro.accesa.repository.ProductRepository;
 
 import java.time.LocalDateTime;
@@ -14,11 +14,11 @@ import java.util.List;
 
 public class PriceAlertService implements IPriceAlertService {
 
-    private final PriceAlertRepository priceAlertRepository;
+    private final IPriceAlertRepository priceAlertRepository;
     private final ProductRepository productRepository;
-    private final PriceHistoryRepository priceHistoryRepository;
+    private final IPriceHistoryRepository priceHistoryRepository;
 
-    public PriceAlertService(PriceAlertRepository priceAlertRepository, ProductRepository productRepository, PriceHistoryRepository priceHistoryRepository) {
+    public PriceAlertService(IPriceAlertRepository priceAlertRepository, ProductRepository productRepository, IPriceHistoryRepository priceHistoryRepository) {
         this.priceAlertRepository = priceAlertRepository;
         this.productRepository = productRepository;
         this.priceHistoryRepository = priceHistoryRepository;

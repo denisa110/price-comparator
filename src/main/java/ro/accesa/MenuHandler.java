@@ -1,15 +1,11 @@
 package ro.accesa;
 
 import jakarta.persistence.EntityManager;
-import ro.accesa.repository.DiscountHistoryRepository;
-import ro.accesa.repository.PriceAlertRepository;
-import ro.accesa.repository.PriceHistoryRepository;
-import ro.accesa.repository.ProductRepository;
-import ro.accesa.service.DiscountService;
-import ro.accesa.service.PriceAlertService;
-import ro.accesa.service.RecommendationService;
+import ro.accesa.repository.*;
+import ro.accesa.service.*;
 import ro.accesa.util.ConsoleUtils;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 /**
@@ -19,10 +15,10 @@ import java.util.Scanner;
  */
 public class MenuHandler {
     private final Scanner scanner;
-    private final DiscountService discountService;
-    private final PriceAlertService priceAlertService;
+    private final IDiscountService discountService;
+    private final IPriceAlertService priceAlertService;
 
-    private final RecommendationService recommendationService;
+    private final IRecommendationService recommendationService;
 
     /**
      * Constructs a MenuHandler and initializes all necessary services using the provided EntityManager.
@@ -31,11 +27,11 @@ public class MenuHandler {
      */
     public MenuHandler(EntityManager em) {
         this.scanner = new Scanner(System.in);
-        DiscountHistoryRepository discountRepository = DiscountHistoryRepository.getInstance(em);
+        IDiscountHistoryRepository discountRepository = DiscountHistoryRepository.getInstance(em);
         this.discountService = new DiscountService(discountRepository);
-        PriceAlertRepository priceAlertRepository = new PriceAlertRepository(em);
+        IPriceAlertRepository priceAlertRepository = new PriceAlertRepository(em);
         ProductRepository productRepository = new ProductRepository(em);
-        PriceHistoryRepository priceHistoryRepository = new PriceHistoryRepository(em);
+        IPriceHistoryRepository priceHistoryRepository = new PriceHistoryRepository(em);
         this.priceAlertService = new PriceAlertService(priceAlertRepository, productRepository, priceHistoryRepository);
         this.recommendationService = new RecommendationService(priceHistoryRepository);
     }
@@ -51,7 +47,7 @@ public class MenuHandler {
                     return;
 
                 case 1:
-                    discountService.displayDiscountsForDate();
+                    displayDiscountsForDate();
                     break;
 
                 case 2:
@@ -110,5 +106,19 @@ public class MenuHandler {
         System.out.print("Enter the category: ");
         String category = scanner.nextLine().trim();
         this.recommendationService.showBestValueProductsByCategory(category);
+    }
+
+    private void displayDiscountsForDate() {
+        System.out.print("Enter the date (format YYYY-MM-DD): ");
+        String dateInput = scanner.nextLine();
+        LocalDate targetDate = LocalDate.parse(dateInput);
+
+        System.out.print("Enter retailer (or leave blank for all): ");
+        String retailer = scanner.nextLine();
+
+        System.out.print("Enter the number of results you want: ");
+        int limit = Integer.parseInt(scanner.nextLine());
+
+        discountService.displayDiscountsForDate(targetDate, retailer, limit);
     }
 }

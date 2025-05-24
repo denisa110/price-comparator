@@ -57,11 +57,10 @@ PriceComparator/
 │   │   └── resources/
 │   │       ├── META-INF/
 │   │       │     └── persistence.xml    # JPA configuration
-│   │       │                            # Maven configuration file
-│   │       │                            # Project documentation
+│   │       │                      
 │   │       └── migrations        # Data migration scripts
-├── pom.xml                            
-└── README.md                          
+├── pom.xml                       # Maven configuration file   
+└── README.md                     # Project documentation        
 
 ```
 
