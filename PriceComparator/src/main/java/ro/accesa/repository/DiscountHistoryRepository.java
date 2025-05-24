@@ -16,6 +16,12 @@ public class DiscountHistoryRepository implements IDiscountHistoryRepository {
         this.entityManager = entityManager;
     }
 
+    /**
+     * Singleton accessor method to obtain an instance of the repository.
+     *
+     * @param entityManager the entity manager to use for data access
+     * @return the singleton instance of {@link DiscountHistoryRepository}
+     */
     public static synchronized DiscountHistoryRepository getInstance(EntityManager entityManager) {
         if (instance == null) {
             instance = new DiscountHistoryRepository(entityManager);

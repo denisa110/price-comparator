@@ -24,6 +24,14 @@ public class PriceAlertService implements IPriceAlertService {
         this.priceHistoryRepository = priceHistoryRepository;
     }
 
+    /**
+     * Utility method that compares the latest product prices with all stored alerts
+     * and returns a list of those that have been triggered.
+     *
+     * @param latestProductPrices recent price history entries
+     * @param alerts all configured price alerts
+     * @return a list of {@link AlertDTO} representing the triggered alerts
+     */
     private static List<AlertDTO> getTriggeredAlerts(List<PriceHistory> latestProductPrices,
                                                      List<PriceAlert> alerts) {
         List<AlertDTO> triggered = new ArrayList<>();

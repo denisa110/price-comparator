@@ -12,6 +12,11 @@ import ro.accesa.util.ConsoleUtils;
 
 import java.util.Scanner;
 
+/**
+ * MenuHandler manages user interaction through a console-based menu.
+ * It orchestrates input collection, service invocation, and output display
+ * for discount listings, price alerts, and product recommendations.
+ */
 public class MenuHandler {
     private final Scanner scanner;
     private final DiscountService discountService;
@@ -19,6 +24,11 @@ public class MenuHandler {
 
     private final RecommendationService recommendationService;
 
+    /**
+     * Constructs a MenuHandler and initializes all necessary services using the provided EntityManager.
+     *
+     * @param em the EntityManager used to instantiate repositories and services
+     */
     public MenuHandler(EntityManager em) {
         this.scanner = new Scanner(System.in);
         DiscountHistoryRepository discountRepository = DiscountHistoryRepository.getInstance(em);

@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 
 import static org.hibernate.internal.util.StringHelper.isNotEmpty;
 
+/**
+ * Utility service for executing SQL migration scripts using JPA's EntityManager.
+ * Designed to load and run SQL files for data import or schema setup.
+ */
 public class SQLScriptRunner {
 
     private final Logger logger = Logger.getLogger("SQLScriptRunner");
@@ -35,6 +39,12 @@ public class SQLScriptRunner {
         logger.log(Level.INFO, "The data was imported successfully!");
     }
 
+    /**
+     * Executes the SQL statements from the specified script file.
+     * Rolls back the transaction on failure.
+     *
+     * @param scriptPath the relative path to the SQL script file
+     */
     private void runScript(String scriptPath) {
         EntityTransaction transaction = entityManager.getTransaction();
 

@@ -33,6 +33,12 @@ public class RecommendationService implements IRecommendationService {
         grouped.forEach(this::printRecommendationGroup);
     }
 
+    /**
+     * Groups price history entries by product name and packaging unit.
+     *
+     * @param prices list of price entries
+     * @return a map of grouped entries
+     */
     private Map<String, List<PriceHistory>> groupByProductAndUnit(List<PriceHistory> prices) {
         return prices.stream()
                 .filter(ph -> ph.getValuePerUnit() != null)
@@ -42,6 +48,12 @@ public class RecommendationService implements IRecommendationService {
                 }));
     }
 
+    /**
+     * Displays the best and alternative recommendations within a group of products.
+     *
+     * @param groupName name of the product group
+     * @param group list of price entries within the group
+     */
     private void printRecommendationGroup(String groupName, List<PriceHistory> group) {
         group.sort(Comparator.comparing(PriceHistory::getValuePerUnit));
         PriceHistory bestPrice = group.getFirst();
@@ -59,7 +71,12 @@ public class RecommendationService implements IRecommendationService {
         group.stream().skip(1).forEach(ph -> printAlternative(ph, bestVPU));
     }
 
-
+    /**
+     * Prints alternative product suggestions with their price difference vs. the best value.
+     *
+     * @param priceHistory the price history entry
+     * @param bestVPU value per unit of the best recommendation
+     */
     private void printAlternative(PriceHistory priceHistory, double bestVPU) {
         Product product = priceHistory.getProduct();
         double vpu = priceHistory.getValuePerUnit();

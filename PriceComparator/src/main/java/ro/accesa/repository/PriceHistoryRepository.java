@@ -10,6 +10,12 @@ import java.util.List;
 public class PriceHistoryRepository implements IPriceHistoryRepository {
     private final EntityManager entityManager;
 
+    /**
+     * Finds the most recent price records for products that match the given partial name.
+     *
+     * @param partialName part of the product name to filter by
+     * @return list of {@link PriceHistory} entities containing the latest prices for matching products
+     */
     @Override
     public List<PriceHistory> findLatestPriceByProductName(String partialName) {
         String jpql = """

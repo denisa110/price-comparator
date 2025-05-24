@@ -12,6 +12,12 @@ public class ProductRepository {
         this.em = em;
     }
 
+    /**
+     * Returns a singleton instance of {@link ProductRepository}.
+     *
+     * @param em the entity manager to use
+     * @return the singleton instance
+     */
     public static synchronized ProductRepository getInstance(EntityManager em) {
         if (instance == null) {
             instance = new ProductRepository(em);
