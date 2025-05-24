@@ -1,7 +1,10 @@
 package ro.accesa.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -9,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Builder  //-Builder pattern
 @Entity
 @Table(name = PriceHistory.PRICE_HISTORY_TABLE)
 @AttributeOverride(name = "id", column = @Column(name = PriceHistory.PRICE_HISTORY_ID))
@@ -30,4 +32,11 @@ public class PriceHistory extends PersistenceEntity {
     @ManyToOne
     @JoinColumn(name = Retailer.RETAILER_ID)
     private Retailer retailer;
+
+    public Double getValuePerUnit() {
+        if (product != null && product.getPackageQuantity() != null && product.getPackageQuantity() > 0 && price != null) {
+            return price / product.getPackageQuantity();
+        }
+        return null;
+    }
 }

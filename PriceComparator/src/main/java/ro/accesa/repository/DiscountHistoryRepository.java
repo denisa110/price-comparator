@@ -7,12 +7,12 @@ import ro.accesa.entity.DiscountHistory;
 import java.time.LocalDate;
 import java.util.List;
 
-public class DiscountHistoryRepository {
+public class DiscountHistoryRepository implements IDiscountHistoryRepository {
 
     private final EntityManager entityManager;
     private static DiscountHistoryRepository instance;
 
-    public DiscountHistoryRepository(EntityManager entityManager) {
+    private DiscountHistoryRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
@@ -23,6 +23,7 @@ public class DiscountHistoryRepository {
         return instance;
     }
 
+    @Override
     public List<DiscountHistory> getDiscountsForDate(LocalDate targetDate, String retailerName, int limit) {
 
         String baseQuery = "SELECT d FROM DiscountHistory d " +
@@ -44,6 +45,7 @@ public class DiscountHistoryRepository {
         return query.getResultList();
     }
 
+    @Override
     public List<DiscountHistory> getNewDiscountsSince(LocalDate fromDate, boolean isActive) {
         String query = "SELECT d FROM DiscountHistory d WHERE ";
 

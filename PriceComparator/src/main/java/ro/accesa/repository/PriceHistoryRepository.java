@@ -7,9 +7,10 @@ import ro.accesa.entity.PriceHistory;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class PriceHistoryRepository {
+public class PriceHistoryRepository implements IPriceHistoryRepository {
     private final EntityManager entityManager;
 
+    @Override
     public List<PriceHistory> findLatestPriceByProductName(String partialName) {
         String jpql = """
                     SELECT ph
@@ -28,5 +29,16 @@ public class PriceHistoryRepository {
                 .getResultList();
     }
 
-
+    @Override
+    public List<PriceHistory> getLatestPricePerProductByCategory(String categoryName) {
+        return entityManager.createQuery(
+                        "SELECT ph FROM PriceHistory ph " +
+                                "JOIN ph.product p JOIN p.category c " +
+                                "WHERE LOWER(c.name) = :catName AND ph.datePrice = (" +
+                                "   SELECT MAX(ph2.datePrice) FROM PriceHistory ph2 WHERE ph2.product = p" +
+                                ")",
+                        PriceHistory.class)
+                .setParameter("catName", categoryName.toLowerCase())
+                .getResultList();
+    }
 }

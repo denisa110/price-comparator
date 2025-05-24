@@ -1,5 +1,6 @@
 package ro.accesa.service;
 
+import ro.accesa.dto.AlertDTO;
 import ro.accesa.entity.PriceAlert;
 import ro.accesa.entity.PriceHistory;
 import ro.accesa.entity.Product;
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PriceAlertService {
+public class PriceAlertService implements IPriceAlertService {
 
     private final PriceAlertRepository priceAlertRepository;
     private final ProductRepository productRepository;
@@ -23,7 +24,31 @@ public class PriceAlertService {
         this.priceHistoryRepository = priceHistoryRepository;
     }
 
-    public void createPriceAlert(String productName, Double targetPrice) {
+    private static List<AlertDTO> getTriggeredAlerts(List<PriceHistory> latestProductPrices,
+                                                     List<PriceAlert> alerts) {
+        List<AlertDTO> triggered = new ArrayList<>();
+
+        for (PriceHistory productPriceHistory : latestProductPrices) {
+            for (PriceAlert alert : alerts) {
+                if (productPriceHistory.getProduct().getId().equals(alert.getProduct().getId()) &&
+                        productPriceHistory.getPrice() <= alert.getTargetPrice()) {
+                    triggered.add(new AlertDTO(
+                            productPriceHistory.getProduct().getName(),
+                            alert.getTargetPrice(),
+                            alert.getCreatedDate(),
+                            productPriceHistory.getPrice(),
+                            productPriceHistory.getCurrency(),
+                            productPriceHistory.getDatePrice(),
+                            productPriceHistory.getRetailer().getName()
+                    ));
+                }
+            }
+        }
+        return triggered;
+    }
+
+    @Override
+    public void create(String productName, Double targetPrice) {
         if (productName == null) {
             System.out.println("The product was not found.");
             return;
@@ -43,42 +68,24 @@ public class PriceAlertService {
 
         priceAlertRepository.save(alert);
 
-
         System.out.println("Alert successfully created for " + product.getName() +
                 " at a price below " + targetPrice + " RON.");
-
     }
 
+    @Override
     public void checkTriggeredAlerts(String productName) {
         List<PriceHistory> latestProductPrices = priceHistoryRepository.findLatestPriceByProductName(productName); //return: 4 - 3
         List<PriceAlert> alerts = priceAlertRepository.findAllAlerts();
 
-        List<TriggeredAlertDTO> triggered = new ArrayList<>();
+        List<AlertDTO> alertsDTO = getTriggeredAlerts(latestProductPrices, alerts);
 
-        for (PriceHistory productPriceHistory : latestProductPrices) {
-            for (PriceAlert alert : alerts) {
-                if (productPriceHistory.getProduct().getId().equals(alert.getProduct().getId()) &&
-                        productPriceHistory.getPrice() <= alert.getTargetPrice()) {
-                    triggered.add(new TriggeredAlertDTO(
-                            productPriceHistory.getProduct().getName(),
-                            alert.getTargetPrice(),
-                            alert.getCreatedDate(),
-                            productPriceHistory.getPrice(),
-                            productPriceHistory.getCurrency(),
-                            productPriceHistory.getDatePrice(),
-                            productPriceHistory.getRetailer().getName()
-                    ));
-                }
-            }
-        }
-
-        if (triggered.isEmpty()) {
+        if (alertsDTO.isEmpty()) {
             System.out.println("There are no alerts triggered at this time.");
             return;
         }
 
         System.out.println("Alerts triggered:");
-        for (TriggeredAlertDTO dto : triggered) {
+        for (AlertDTO dto : alertsDTO) {
             System.out.printf("- %s | Current price: %.2f %s | Target price: %.2f RON | Price added on date: %s | Retailer: %s%n",
                     dto.productName(),
                     dto.price(),
@@ -89,5 +96,4 @@ public class PriceAlertService {
             );
         }
     }
-
 }

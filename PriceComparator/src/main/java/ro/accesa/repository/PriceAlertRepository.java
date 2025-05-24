@@ -9,10 +9,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @RequiredArgsConstructor
-public class PriceAlertRepository {
+public class PriceAlertRepository implements IPriceAlertRepository {
     private static final Logger logger = Logger.getLogger(PriceAlertRepository.class.getName());
     private final EntityManager entityManager;
 
+    @Override
     public void save(PriceAlert alert) {
         EntityTransaction tx = entityManager.getTransaction();
         try {
@@ -26,6 +27,7 @@ public class PriceAlertRepository {
         }
     }
 
+    @Override
     public List<PriceAlert> findAllAlerts() {
         return entityManager.createQuery(
                 "SELECT a FROM PriceAlert a ", PriceAlert.class

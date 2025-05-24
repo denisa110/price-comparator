@@ -1,7 +1,10 @@
 package ro.accesa.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -12,7 +15,6 @@ import static ro.accesa.entity.Category.CATEGORY_TABLE;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-@Builder  //-Builder pattern
 @Entity
 @Table(name = CATEGORY_TABLE)
 @AttributeOverride(name = "id", column = @Column(name = CATEGORY_ID))

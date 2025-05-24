@@ -1,4 +1,4 @@
-package ro.accesa;
+package ro.accesa.util;
 
 import java.util.Scanner;
 
@@ -24,6 +24,7 @@ public class ConsoleUtils {
         System.out.println(YELLOW + "2." + RESET + " New Discounts");
         System.out.println(YELLOW + "3." + RESET + " Create Price Alert");
         System.out.println(YELLOW + "4." + RESET + " View Price Alert");
+        System.out.println(YELLOW + "5." + RESET + " Product Substitutes & Recommendations");
         System.out.println(RED + "0." + RESET + " Exit Application");
         System.out.println();
         System.out.print("Enter your choice: ");

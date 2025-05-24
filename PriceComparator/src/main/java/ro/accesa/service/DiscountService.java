@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
-public class DiscountService {
+public class DiscountService implements IDiscountService {
     private final Scanner scanner;
     private final DiscountHistoryRepository discountRepository;
 
@@ -19,6 +19,7 @@ public class DiscountService {
         this.scanner=new Scanner(System.in);
     }
 
+    @Override
     public void displayDiscountsForDate() {
         try {
             System.out.print("Enter the date (format YYYY-MM-DD): ");
@@ -57,6 +58,7 @@ public class DiscountService {
         }
     }
 
+    @Override
     public void displayNewDiscounts(int hours, boolean isActive) {
         LocalDateTime currentDateTime = LocalDateTime.now().minusHours(hours);
         LocalDate fromDate = currentDateTime.toLocalDate();

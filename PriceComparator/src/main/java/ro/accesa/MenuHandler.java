@@ -7,6 +7,8 @@ import ro.accesa.repository.PriceHistoryRepository;
 import ro.accesa.repository.ProductRepository;
 import ro.accesa.service.DiscountService;
 import ro.accesa.service.PriceAlertService;
+import ro.accesa.service.RecommendationService;
+import ro.accesa.util.ConsoleUtils;
 
 import java.util.Scanner;
 
@@ -14,6 +16,8 @@ public class MenuHandler {
     private final Scanner scanner;
     private final DiscountService discountService;
     private final PriceAlertService priceAlertService;
+
+    private final RecommendationService recommendationService;
 
     public MenuHandler(EntityManager em) {
         this.scanner = new Scanner(System.in);
@@ -23,6 +27,7 @@ public class MenuHandler {
         ProductRepository productRepository = new ProductRepository(em);
         PriceHistoryRepository priceHistoryRepository = new PriceHistoryRepository(em);
         this.priceAlertService = new PriceAlertService(priceAlertRepository, productRepository, priceHistoryRepository);
+        this.recommendationService = new RecommendationService(priceHistoryRepository);
     }
 
     public void start() {
@@ -48,9 +53,13 @@ public class MenuHandler {
                     break;
 
                 case 4:
-                    System.out.print("Introduceți numele produsului: ");
+                    System.out.print("Enter the product name: ");
                     String productName = scanner.nextLine();
                     priceAlertService.checkTriggeredAlerts(productName);
+                    break;
+
+                case 5:
+                    showBestValueProductsByCategory();
                     break;
 
                 default:
@@ -84,8 +93,12 @@ public class MenuHandler {
         System.out.print("Introduceți prețul țintă: ");
         double targetPrice = Double.parseDouble(scanner.nextLine().trim());
 
-        priceAlertService.createPriceAlert(productName, targetPrice);
+        priceAlertService.create(productName, targetPrice);
     }
 
-
+    private void showBestValueProductsByCategory() {
+        System.out.print("Enter the category: ");
+        String category = scanner.nextLine().trim();
+        this.recommendationService.showBestValueProductsByCategory(category);
+    }
 }
