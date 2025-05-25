@@ -19,7 +19,7 @@
 - **SQL Data Import Scripts:** Includes a migrations/ directory under resources/, containing versioned SQL scripts used to populate the database with data from csv files about products and discounts data for various retailers. These are executed automatically at startup when necessary, simulating a real-world data feed.
 
 ## Technologies Used
-- **Java 17+**
+- **Java 21**
 - **Jakarta Persistence API (JPA)**
 - **Maven** for build and dependency management
 - **PostgreSQL** as the relational database

@@ -31,5 +31,10 @@ public class DiscountHistory extends PersistenceEntity {
     @JoinColumn(name = PriceHistory.PRICE_HISTORY_ID)
     private PriceHistory priceHistory;
 
-
+    public DiscountHistory(LocalDate startDate, LocalDate endDate, Float percentageOfDiscount, PriceHistory priceHistory) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.percentageOfDiscount = percentageOfDiscount;
+        this.priceHistory = priceHistory;
+    }
 }

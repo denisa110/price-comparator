@@ -48,29 +48,6 @@ INSERT INTO PRODUCT (product_id, name, brand, package_quantity, package_unit, ca
 (19, 'vin alb demisec', 'Jidvei', 0.75, 'l', (SELECT category_id FROM CATEGORY WHERE name = 'băuturi')),
 (20, 'ciocolată neagră 70%', 'Fin Carre', 100, 'g', (SELECT category_id FROM CATEGORY WHERE name = 'gustări'));
 
-
---INSERT INTO PRICE_HISTORY (price_history_id, date_price, price, currency, product_id, retailer_id) VALUES
---(1, '2025-05-01', 9.90, 'RON', 1, 1),
---(2, '2025-05-01', 11.50, 'RON', 2, 1),
---(3, '2025-05-01', 13.20, 'RON', 3, 1),
---(4, '2025-05-01', 12.80, 'RON', 4, 1),
---(5, '2025-05-01', 3.50, 'RON', 5, 1),
---(6, '2025-05-01', 6.80, 'RON', 6, 1),
---(7, '2025-05-01', 28.50, 'RON', 7, 1),
---(8, '2025-05-01', 5.80, 'RON', 8, 1),
---(9, '2025-05-01', 4.40, 'RON', 9, 1),
---(10, '2025-05-01', 5.20, 'RON', 10, 1),
---(11, '2025-05-01', 6.10, 'RON', 11, 1),
---(12, '2025-05-01', 9.20, 'RON', 12, 1),
---(13, '2025-05-01', 7.10, 'RON', 13, 1),
---(14, '2025-05-01', 22.40, 'RON', 14, 1),
---(15, '2025-05-01', 49.90, 'RON', 15, 1),
---(16, '2025-05-01', 17.80, 'RON', 16, 1),
---(17, '2025-05-01', 18.90, 'RON', 17, 1),
---(18, '2025-05-01', 6.00, 'RON', 18, 1),
---(19, '2025-05-01', 23.50, 'RON', 19, 1),
---(20, '2025-05-01', 3.90, 'RON', 20, 1);
-
 INSERT INTO PRICE_HISTORY (price_history_id, date_price, price, currency, is_base_price, product_id, retailer_id) VALUES
 (1, '2025-05-01', 9.90, 'RON', true, 1, 1),
 (2, '2025-05-01', 11.50, 'RON', true, 2, 1),

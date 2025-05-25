@@ -27,16 +27,25 @@ public class ConsoleUtils {
         System.out.println(YELLOW + "5." + RESET + " Product Substitutes & Recommendations");
         System.out.println(RED + "0." + RESET + " Exit Application");
         System.out.println();
-        System.out.print("Enter your choice: ");
     }
 
     public static int getChoice(Scanner scanner) {
-        try {
-            return Integer.parseInt(scanner.nextLine().trim());
-        } catch (NumberFormatException e) {
-            printError("Invalid input. Please enter a number.");
-            return -1;
+        int choice = -1;
+        boolean valid = false;
+
+        while (!valid) {
+            System.out.print("Enter your choice: ");
+            String input = scanner.nextLine().trim();
+
+            try {
+                choice = Integer.parseInt(input);
+                valid = true;
+            } catch (NumberFormatException e) {
+                printError("Invalid input. Please enter a number.");
+            }
         }
+
+        return choice;
     }
 
     public static void waitForEnter(Scanner scanner) {
