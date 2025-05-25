@@ -19,12 +19,26 @@
 - **SQL Data Import Scripts:** Includes a migrations/ directory under resources/, containing versioned SQL scripts used to populate the database with data from csv files about products and discounts data for various retailers. These are executed automatically at startup when necessary, simulating a real-world data feed.
 
 ## Technologies Used
+
 - **Java 21**
 - **Jakarta Persistence API (JPA)**
 - **Maven** for build and dependency management
 - **PostgreSQL** as the relational database
 - **Lombok** to reduce boilerplate code 
 
+### Installation
+
+```bash
+git clone https://github.com/denisa110/price-comparator.git
+```
+Update the `persistence.xml` file with your local database credentials.
+
+### Build and Run
+
+```bash
+mvn clean install
+```
+Start the application from the mainClass="ro.accesa.Main"
 
 ## Configure the Database
    - A PostgreSQL database named `priceComparatorDB`.
@@ -63,6 +77,35 @@ PriceComparator/
 └── README.md                     # Project documentation        
 
 ```
+
+## How to Use the Implemented Features
+
+After running the application, a console-based interactive menu will be displayed. The following options are available:
+
+1. **Display Best Discounts**
+     - Choose option `1` from the menu.
+     - Enter the date (`YYYY-MM-DD`) to view active discounts.
+     - Optionally enter a retailer name or leave blank to search all.
+     - Specify the number of results to view top discounts by percentage.
+
+2. **Display New Discounts**
+     - Choose option `2`.
+     - Enter the number of hours to look back (e.g., 400).
+     - Specify whether to view only active discounts (`Y/N`).
+
+3. **Create a Price Alert**
+     - Choose option `3`.
+     - Provide the product name and a target price in RON.
+     - The alert is saved and triggered when the product's price drops to or below the threshold.
+
+4. **Check Triggered Alerts**
+     - Choose option `4`.
+     - Enter the product name to check which alerts have been triggered.
+
+5. **Show Best Value Products by Category**
+     - Choose option `5`.
+     - Enter the name of the product category (e.g., “băuturi”).
+     - The app will display recommended products sorted by value per unit (kg, liter, etc.).
 
 ## Future Enhancements
 
